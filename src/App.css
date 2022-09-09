@@ -1,0 +1,11 @@
+article {
+    border: 2px solid blue;
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+}
+
+label {
+    display: flex;
+    gap: 10px;
+}
