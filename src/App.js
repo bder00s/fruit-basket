@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+
 import './App.css';
 import logo from './assets/screenshot-logo.png';
+import FruitBlock from "./Components/FruitBlock";
+import React from 'react';
 
 //Label alleen nodig bij inputvelden en selecties
 //htmlFor moet altijd hetzelfde zijn als de id
@@ -17,6 +19,11 @@ function App() {
     const [age, setAge] = React.useState('');
     const [zipCode, setZipCode] = React.useState('');
     const [deliveryFrequency, toggleDeliveryFrequency] = React.useState("week");
+    const [daytime, toggleDaytime] = React.useState('');
+    const [comment, setComment] = React.useState('');
+    const [checkedTerms, toggleCheckedTerms] = React.useState(false);
+
+
 
 
     function resetFruit() {
@@ -41,25 +48,23 @@ function App() {
         ${apples} appels, 
         ${kiwis} kiwi's,
         `)
+        console.log(`
+        Tijdstip: ${daytime},
+        Opmerkingen: ${comment},
+        Terms and conditions: ${checkedTerms}
+        `)
     }
 
     return (
         <>
             <img src={logo} alt="logo" width="400px"/>
             <article>
-                <h1>🍓 Aardbeien</h1>
-                <button
-                    type="button"
-                    onClick={() => setStrawberries(strawberries + 1)}>
-                    +
-                </button>
-                <p className="amountOfFruit">{strawberries}</p>
-                <button
-                    type="button"
-                    disabled={strawberries === 0}
-                    onClick={() => setStrawberries(strawberries - 1)}>
-                    -
-                </button>
+                <FruitBlock
+                    fruitTitle="🍓 Aardbeien"
+                  // onClick={() => setStrawberries(strawberries + 1)}
+                    currentAmount={strawberries}
+
+                />
 
             </article>
 
@@ -176,8 +181,43 @@ function App() {
                     </select>
                 </label>
 
+                <label htmlFor="time-field">
+                    <input
+                        type="radio"
+                        name="time-field"
+                        value={daytime}
+                        onChange={() => toggleDaytime(!daytime)}
+                    />
+                    Overdag
+                    <input
+                        type="radio"
+                        name="time-field"
+                        value={!daytime}
+                        onChange={() => toggleDaytime(daytime)}
+                    />
+                    's Avonds
+                </label>
+                <label htmlFor="comment">
+                    Opmerking
+                    <textarea
+                        name="comment"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                    />
+                </label>
+                <label htmlFor="terms-and-conditions">
+                    <input
+                        type="checkbox"
+                        name="terms-and-conditions"
+                        checked={checkedTerms}
+                        onChange={() => toggleCheckedTerms(!checkedTerms)}
+                    />
+                    Ik ga akkoord met de voorwaarden
+                </label>
+
                 <button
-                    type="sumit"
+                    type="submit"
+                    disabled={!checkedTerms}
                 >Versturen
                 </button>
             </form>
