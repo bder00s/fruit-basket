@@ -1,8 +1,9 @@
-
 import './App.css';
 import logo from './assets/screenshot-logo.png';
 import FruitBlock from "./Components/FruitBlock";
+import Questionfield from "./Components/Questionfield"
 import React from 'react';
+import ActionButton from "./Components/ActionButton";
 
 //Label alleen nodig bij inputvelden en selecties
 //htmlFor moet altijd hetzelfde zijn als de id
@@ -22,8 +23,6 @@ function App() {
     const [daytime, toggleDaytime] = React.useState('');
     const [comment, setComment] = React.useState('');
     const [checkedTerms, toggleCheckedTerms] = React.useState(false);
-
-
 
 
     function resetFruit() {
@@ -61,112 +60,80 @@ function App() {
             <article>
                 <FruitBlock
                     fruitTitle="🍓 Aardbeien"
-                  // onClick={() => setStrawberries(strawberries + 1)}
-                    currentAmount={strawberries}
+                    fruitCount={strawberries}
+                    setFruitCount={setStrawberries}
 
                 />
 
             </article>
 
             <article>
-                <h1> 🍌 Bananen</h1>
-                <button
-                    type="button"
-                    onClick={() => setBananas(bananas + 1)}>
-                    +
-                </button>
-                <p>{bananas}</p>
-                <button
-                    type="button"
-                    disabled={bananas === 0}
-                    onClick={() => setBananas(bananas - 1)}>
-                    -
-                </button>
+                <FruitBlock
+                    fruitTitle="🍌 Bananen"
+                    fruitCount={bananas}
+                    setFruitCount={setBananas}
+                />
             </article>
 
             <article>
-                <h1>🍏 Appels</h1>
-                <button
-                    type="button"
-                    onClick={() => setApples(apples + 1)}>
-                    +
-                </button>
-                <p>{apples}</p>
-                <button
-                    type="button"
-                    disabled={apples === 0}
-                    onClick={() => setApples(apples - 1)}>
-                    -
-                </button>
-
+                <FruitBlock
+                    fruitTitle="🍏 Appels"
+                    fruitCount={apples}
+                    setFruitCount={setApples}
+                />
             </article>
 
             <article>
-                <h1>🥝 Kiwis</h1>
-                <button
-                    type="button"
-                    onClick={() => setKiwis(kiwis + 1)}>
-                    +
-                </button>
-                <p>{kiwis}</p>
-                <button
-                    type="button"
-                    disabled={kiwis === 0}
-                    onClick={() => setKiwis(kiwis - 1)}>
-                    -
-                </button>
-
+                <FruitBlock
+                    fruitTitle="🥝 Kiwis"
+                    fruitCount={kiwis}
+                    setFruitCount={setKiwis}
+                />
             </article>
 
+            <ActionButton
+                functionPlaceholder={resetFruit()}
+                buttonText="Reset"
+                />
 
-            <button
-                onClick={() => resetFruit()}
-            >Reset
-            </button>
+            {/*<button*/}
+            {/*    onClick={() => resetFruit()}*/}
+            {/*>Reset*/}
+            {/*</button>*/}
 
             <form onSubmit={handleSubmit}>
-                <label htmlFor="firstName-field">
-                    Voornaam
-                    <input
-                        name="firstname"
-                        id="firstName-field"
-                        type="text"
-                        value={firstname}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                </label>
 
-                <label htmlFor="lastName-field">
-                    Achternaam
-                    <input
-                        name="lastname"
-                        id="lastName-field"
-                        type="text"
-                        value={lastname}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                </label>
-                <label htmlFor="age-field">
-                    Leeftijd
-                    <input
-                        name="age"
-                        id="age-field"
-                        type="number"
-                        value={age}
-                        onChange={(e) => setAge(e.target.value)}
-                    />
-                </label>
+                <Questionfield
+                    fieldID="firstName-field"
+                    fieldTitle="Voornaam"
+                    fieldType="text"
+                    content={firstname}
+                    setContent={setFirstName}
+                />
 
-                <label htmlFor="zipcode-field">
-                    Postcode
-                    <input
-                        name="zipcode"
-                        id="zipcode-field"
-                        type="text"
-                        value={zipCode}
-                        onChange={(e) => setZipCode(e.target.value)}
-                    />
-                </label>
+                <Questionfield
+                    fieldID="lastname"
+                    fieldTitle="Achternaam"
+                    fieldType="text"
+                    content={lastname}
+                    setContent={setLastName}
+                />
+
+                <Questionfield
+                    fieldID="age"
+                    fieldTitle="Leeftijd"
+                    fieldType="number"
+                    content={age}
+                    setContent={setAge}
+                />
+
+                <Questionfield
+                    fieldID="zipcode-field"
+                    fieldTitle="Postcode"
+                    content={zipCode}
+                    setContent={setZipCode}
+                />
+
                 <label htmlFor="delivery-field">
                     Bezorgfrequentie
                     <select

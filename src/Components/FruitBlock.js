@@ -3,18 +3,23 @@ import React from "react";
 
 
 
-function FruitBlock({fruitTitle, currentAmount, isDisabled}) {
+function FruitBlock({fruitTitle, fruitCount, setFruitCount}) {
 
     return (
-        <>
+        <article>
             <h1>{fruitTitle}</h1>
-            <button>+</button>
+            <button type="button"
+                    onClick={() => setFruitCount(fruitCount + 1)}>
+            +</button>
 
-            <p>{currentAmount}</p>
+            <p>{fruitCount}</p>
 
-            <button>-</button>
+            <button type="button"
+                    disabled={fruitCount === 0}
+                    onClick={() => setFruitCount(fruitCount - 1)}>
+            -</button>
 
-        </>
+        </article>
     )
 }
 
